@@ -254,7 +254,7 @@ public class AsyncTeleport implements IAsyncTeleport {
             targetLoc.setY(targetLoc.getY() + 4.0);
 
         } else {
-            targetLoc = entityLoc.clone();
+            targetLoc = vehicle.getLocation();
         }
 
         teleport(teleportOwner, new LocationTarget(targetLoc), chargeFor, cause, future);
