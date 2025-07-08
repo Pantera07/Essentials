@@ -247,7 +247,7 @@ public class AsyncTeleport implements IAsyncTeleport {
 
         } else if (vehicle instanceof Boat) {
             targetLoc = vehicle.getLocation();
-            targetLoc.setY(entityLoc.getY() + 0.8576);
+            targetLoc.setY(targetLoc.getY() + 0.5625);
 
         } else if (vehicle instanceof HappyGhast) {
             targetLoc = vehicle.getLocation();
