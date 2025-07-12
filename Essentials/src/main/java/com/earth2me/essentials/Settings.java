@@ -1823,7 +1823,7 @@ public class Settings implements net.ess3.api.ISettings {
     }
 
     @Override
-    public boolean isAllowIceCommand() { return config.getBoolean("command-cooldown-persistence", true); }
+    public boolean isFreezeDisabled() { return config.getBoolean("disable-freeze", false); }
 
     private boolean _isNpcsInBalanceRanking() {
         return config.getBoolean("npcs-in-balance-ranking", false);
