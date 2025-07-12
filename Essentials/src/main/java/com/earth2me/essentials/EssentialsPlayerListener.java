@@ -220,6 +220,10 @@ public class EssentialsPlayerListener implements Listener, FakeAccessor {
             return;
         }
 
+        if (!ess.getSettings().cancelAfkOnMove() && !ess.getSettings().getFreezeAfkPlayers() && ess.getSettings().getAutoAfk() <= 0) {
+            return;
+        }
+    
         final User user = ess.getUser(event.getPlayer());
 
         if (user.isFreeze()) {
