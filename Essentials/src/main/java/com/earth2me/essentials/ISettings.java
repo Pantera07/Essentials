@@ -346,6 +346,8 @@ public interface ISettings extends IConf {
 
     boolean isCommandCooldownsEnabled();
 
+    boolean isAllowIceCommand();
+
     boolean isWorldChangeFlyResetEnabled();
 
     boolean isWorldChangePreserveFlying();
