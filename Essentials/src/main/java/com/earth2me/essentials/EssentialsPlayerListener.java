@@ -220,13 +220,13 @@ public class EssentialsPlayerListener implements Listener, FakeAccessor {
             return;
         }
 
-        if (ess.getSettings().getAutoAfk() <= 0 && !ess.getSettings().cancelAfkOnMove() && !ess.getSettings().getFreezeAfkPlayers() && !ess.getSettings().isAllowIceCommand()) {
+        if (ess.getSettings().getAutoAfk() <= 0 && !ess.getSettings().cancelAfkOnMove() && ess.getSettings().isFreezeDisabled()) {
             return;
         }
 
         final User user = ess.getUser(event.getPlayer());
 
-        if (user.isFreeze()) {
+        if (user.isFreeze() && !ess.getSettings().isFreezeDisabled()) {
             final Location from = event.getFrom();
             final Location to = event.getTo().clone();
             to.setX(from.getX());
@@ -244,7 +244,7 @@ public class EssentialsPlayerListener implements Listener, FakeAccessor {
             return;
         }
 
-        if (user.isAfk() && ess.getSettings().getFreezeAfkPlayers()) {
+        if (user.isAfk() && ess.getSettings().getFreezeAfkPlayers() && !ess.getSettings().isFreezeDisabled()) {
             final Location from = event.getFrom();
             final Location origTo = event.getTo();
             final Location to = origTo.clone();
