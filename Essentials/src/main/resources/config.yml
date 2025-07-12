@@ -687,8 +687,8 @@ command-cooldowns:
 # Whether command cooldowns should persist across server shutdowns.
 command-cooldown-persistence: true
 
-# Allows the ice command.
-allow-ice-command: true
+# Disable player freeze.
+disable-freeze: false
 
 # Whether NPC balances should be included in balance ranking features like /balancetop.
 # NPC balances can include features like factions from the FactionsUUID plugin.
