@@ -18,6 +18,11 @@ public class Commandice extends EssentialsLoopCommand {
 
     @Override
     protected void run(Server server, CommandSource sender, String commandLabel, String[] args) throws Exception {
+        if (ess.getSettings().isFreezeDisabled()) {
+            sender.sendTl("Freeze is disabled in settings.");
+            return;
+        }
+
         if (VersionUtil.getServerBukkitVersion().isLowerThan(VersionUtil.v1_17_R01)) {
             sender.sendTl("unsupportedFeature");
             return;
