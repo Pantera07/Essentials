@@ -1822,6 +1822,9 @@ public class Settings implements net.ess3.api.ISettings {
         return config.getBoolean("command-cooldown-persistence", true);
     }
 
+    @Override
+    public boolean isAllowIceCommand() { return config.getBoolean("command-cooldown-persistence", true); }
+
     private boolean _isNpcsInBalanceRanking() {
         return config.getBoolean("npcs-in-balance-ranking", false);
     }
