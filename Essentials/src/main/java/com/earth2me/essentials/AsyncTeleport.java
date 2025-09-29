@@ -16,6 +16,11 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
+// Zerus Change
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Boat;
+import org.bukkit.entity.HappyGhast;
+// Zerus Change
 
 import java.math.BigDecimal;
 import java.util.Calendar;
@@ -232,7 +237,29 @@ public class AsyncTeleport implements IAsyncTeleport {
     @Override
     public void teleport(final Player entity, final Trade chargeFor, final TeleportCause cause, final CompletableFuture<Boolean> future) {
         teleportOwner.sendTl("teleportToPlayer", entity.getDisplayName());
-        teleport(teleportOwner, new PlayerTarget(entity), chargeFor, cause, future);
+        // Zerus Change
+        final Location entityLoc = entity.getLocation();
+        final Entity vehicle = entity.getVehicle();
+        final Location targetLoc;
+
+        if (vehicle == null) {
+            targetLoc = entityLoc.clone();
+
+        } else if (vehicle instanceof Boat) {
+            targetLoc = vehicle.getLocation();
+            targetLoc.setY(targetLoc.getY() + 0.5625);
+
+        } else if (vehicle instanceof HappyGhast) {
+            targetLoc = vehicle.getLocation();
+            targetLoc.setY(targetLoc.getY() + 4.0 + 0.5);
+
+        } else {
+            targetLoc = vehicle.getLocation();
+        }
+
+        teleport(teleportOwner, new LocationTarget(targetLoc), chargeFor, cause, future);
+        //teleport(teleportOwner, new PlayerTarget(entity), chargeFor, cause, future);
+        // Zerus Change
     }
 
     @Override
