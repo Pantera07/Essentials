@@ -62,7 +62,7 @@ import org.bukkit.event.player.PlayerGameModeChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
+//import org.bukkit.event.player.PlayerMoveEvent; // Zerus Change - Remove PlayerMoveEvent
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
@@ -231,59 +231,7 @@ public class EssentialsPlayerListener implements Listener {
         user.setDisplayNick();
     }
 
-    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
-    public void onPlayerMove(final PlayerMoveEvent event) {
-        if (event.getFrom().getBlockX() == event.getTo().getBlockX() && event.getFrom().getBlockZ() == event.getTo().getBlockZ() && event.getFrom().getBlockY() == event.getTo().getBlockY()) {
-            return;
-        }
-
-        final User user = ess.getUser(event.getPlayer());
-
-        if (user.isFreeze()) {
-            final Location from = event.getFrom();
-            final Location to = event.getTo().clone();
-            to.setX(from.getX());
-            to.setY(from.getY());
-            to.setZ(from.getZ());
-            try {
-                event.setTo(LocationUtil.getSafeDestination(ess, to));
-            } catch (final Exception ex) {
-                event.setTo(to);
-            }
-            return;
-        }
-
-        if (!ess.getSettings().cancelAfkOnMove() && !ess.getSettings().getFreezeAfkPlayers()) {
-            return;
-        }
-
-        if (user.isAfk() && ess.getSettings().getFreezeAfkPlayers()) {
-            final Location from = event.getFrom();
-            final Location origTo = event.getTo();
-            final Location to = origTo.clone();
-            if (origTo.getY() >= from.getBlockY() + 1) {
-                user.updateActivityOnMove(true);
-                return;
-            }
-            to.setX(from.getX());
-            to.setY(from.getY());
-            to.setZ(from.getZ());
-            try {
-                if (event.getPlayer().getAllowFlight()) {
-                    // Don't teleport to a safe location here, they are either a god or flying
-                    throw new Exception();
-                }
-                event.setTo(LocationUtil.getSafeDestination(ess, to));
-            } catch (final Exception ex) {
-                event.setTo(to);
-            }
-            return;
-        }
-        final Location afk = user.getAfkPosition();
-        if (afk == null || !event.getTo().getWorld().equals(afk.getWorld()) || afk.distanceSquared(event.getTo()) > 9) {
-            user.updateActivityOnMove(true);
-        }
-    }
+    // Zerus Change - Remove PlayerMoveEvent
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerQuit(final PlayerQuitEvent event) {
