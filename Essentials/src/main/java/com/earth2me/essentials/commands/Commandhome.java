@@ -48,6 +48,12 @@ public class Commandhome extends EssentialsCommand {
                 PaperLib.getBedSpawnLocationAsync(player.getBase(), true).thenAccept(location -> {
                     final CompletableFuture<Boolean> future = getNewExceptionFuture(user.getSource(), commandLabel);
                     if (location != null) {
+                        // Zerus Change
+                        if (!location.getWorld().equals(user.getBase().getWorld())) {
+                            showError(user.getBase(), new TranslatableException("noPerm"), commandLabel);
+                            return;
+                        }
+                        // Zerus Change
                         final UserTeleportHomeEvent event = new UserTeleportHomeEvent(user, "bed", location, UserTeleportHomeEvent.HomeType.BED);
                         server.getPluginManager().callEvent(event);
                         if (event.isCancelled()) {
