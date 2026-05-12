@@ -94,6 +94,22 @@ public class Commandtpaccept extends EssentialsCommand {
             throw new TranslatableException("noPendingRequest");
         }
 
+        // Zerus start
+        if (user.getWorld() != requester.getWorld()) {
+            user.removeTpaRequest(request.getName());
+
+            if (request.isHere()) {
+                // /tpahere
+                requester.sendMessage("§c" + user.getDisplayName() + " §4님은 다른 월드에 있어서 순간이동해올 수 없습니다.");
+                throw new Exception("§c" + requester.getDisplayName() + " §4님이 수락했지만 다른 월드에 있어서 순간이동할 수 없습니다.");
+            } else {
+                // /tpa
+                requester.sendMessage("§c" + user.getDisplayName() + " §4님이 수락했지만 다른 월드에 있어서 순간이동할 수 없습니다.");
+                throw new Exception("§c" + requester.getDisplayName() + " §4님은 다른 월드에 있어서 순간이동해올 수 없습니다.");
+            }
+        }
+        // Zerus end
+
         final TeleportRequestResponseEvent event = new TeleportRequestResponseEvent(user, requester, request, true);
         Bukkit.getPluginManager().callEvent(event);
         if (event.isCancelled()) {
