@@ -52,8 +52,8 @@ public class Commandhome extends EssentialsCommand {
                     final CompletableFuture<Boolean> future = getNewExceptionFuture(user.getSource(), commandLabel);
                     if (location != null) {
                         // Zerus Change
-                        if (!location.getWorld().equals(user.getBase().getWorld())) {
-                            showError(user.getBase(), new TranslatableException("noPerm"), commandLabel);
+                        if (location.getWorld() != user.getWorld()) {
+                            showError(user.getBase(), new Exception("침대/리스폰 정박기 지점이 다른 월드에 있어서 순간이동할 수 없습니다."), commandLabel);
                             return;
                         }
                         // Zerus Change
